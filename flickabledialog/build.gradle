@@ -1,9 +1,12 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
-
+    lintOptions {
+        abortOnError false
+    }
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 24
@@ -32,11 +35,12 @@ dependencies {
     compile 'junit:junit:4.12'
     compile 'com.android.support.test:runner:0.5'
 }
+
 publish {
     userOrg = 'tkurimura'
-    groupId = 'com.tkurimura'
+    groupId = 'com.tkurimura.flickabledialog'
     artifactId = 'flickabledialog'
-    publishVersion = "0.0.1"
+    publishVersion = "0.1.0"
     desc = 'This dialog can flick and make it easy to dismiss sensuously.'
     website = 'https://github.com/t-kurimura/flickabledialog'
 }
