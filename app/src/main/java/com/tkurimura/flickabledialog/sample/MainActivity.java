@@ -1,4 +1,4 @@
-package sample;
+package com.tkurimura.flickabledialog.sample;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
