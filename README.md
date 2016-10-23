@@ -1,7 +1,7 @@
 # flickabledialog
 	
 This dialog can flick and make it easy to dismiss sensuously.
-
+You can show your infromation to users with minimum stress.
 
 ## Download 
 
@@ -10,6 +10,25 @@ Gradle :
 ```
 compile 'com.tkurimura:flickabledialog:0.1.1'
 ```
+
+## Require
+
+java7 and Android minimum sdk11 (Andorid 3.0)
+
+## Usage
+
+```
+FlickableDialog dialog = FlickableDialog.newInstance(R.layout.your_dialog_layout);
+dialog.show(getSupportFragmentManager(),dialog.getClass().getSimpleName());
+
+```
+and you can override FlickableDialog with any additional function
+
+## Sample 
+
+![Flick](https://github.com/t-kurimura/flickabledialog/blob/master/sample_throw.gif)
+
+![come back](https://github.com/t-kurimura/flickabledialog/blob/master/sample_back.gif)
 
 ## Liscense
 
