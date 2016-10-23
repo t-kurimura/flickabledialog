@@ -42,7 +42,7 @@ publish {
     userOrg = 'tkurimura'
     groupId = 'com.tkurimura.flickabledialog'
     artifactId = 'flickabledialog'
-    publishVersion = "0.1.1"
+    publishVersion = "0.2.0"
     desc = 'This dialog can flick and make it easy to dismiss sensuously.'
     website = 'https://github.com/t-kurimura/flickabledialog'
 }
