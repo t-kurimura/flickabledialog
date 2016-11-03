@@ -11,14 +11,6 @@ public class FlickableDialogListener {
     LEFT_BOTTOM
   }
 
-  enum CROSS_DIRECTION{
-
-    LEFT_TOP,
-    RIGHT_TOP,
-    RIGHT_BOTTOM,
-    LEFT_BOTTOM
-  }
-
   public interface OnFlickedCross{
     /**
      * callback flicking direction in categorization of cross area
@@ -28,15 +20,13 @@ public class FlickableDialogListener {
     void onFlicked(X_DIRECTION xDirection);
   }
 
-  public interface OnFlickedX{
+  public interface OnOriginBack {
     /**
      * callback flicking direction in categorization of X area
      * @version 0.3.0
-     * @param crossDirection direction
      */
-    void onFlicked(CROSS_DIRECTION crossDirection);
+    void onOriginBack();
   }
-
 
   public interface OnFlicking{
     /**
