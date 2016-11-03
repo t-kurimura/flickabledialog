@@ -1,43 +1,25 @@
 package com.tkurimura.flickabledialog;
-
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-
 import rx.Observable;
 import rx.Subscriber;
-
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.subscriptions.CompositeSubscription;
 
 public class FlickableDialog extends DialogFragment {
-
-  private static final String LAYOUT_RESOURCE_KEY = "layout_resource_bundle_key";
-  private static final String ROTATE_ANIMATION_KEY = "rotate_animation_key";
-  private static final String DISMISS_THRESHOLD_KEY = "layout_resource_bundle_key";
-
-  private float DISMISS_THRESHOLD = 700f;
-  private float ROTATE_ANIMATION = 30f;
-
-  private CompositeSubscription compositeSubscription = new CompositeSubscription();
-
-  boolean touchedTopArea;
-  private int previousX;
-  private int previousY;
-
-  private boolean discarded = false;
 
   public static FlickableDialog newInstance(@LayoutRes int layoutResources) {
 
@@ -69,6 +51,44 @@ public class FlickableDialog extends DialogFragment {
     flickableDialog.setArguments(bundle);
 
     return flickableDialog;
+  }
+
+  private static final String LAYOUT_RESOURCE_KEY = "layout_resource_bundle_key";
+  private static final String ROTATE_ANIMATION_KEY = "rotate_animation_key";
+  private static final String DISMISS_THRESHOLD_KEY = "layout_resource_bundle_key";
+
+  private float DISMISS_THRESHOLD = 700f;
+  private float ROTATE_ANIMATION = 30f;
+
+  private CompositeSubscription compositeSubscription = new CompositeSubscription();
+
+  boolean touchedTopArea;
+  private int previousX;
+  private int previousY;
+
+  FlickableDialogListener.OnFlickedCross onFlickedCrossListener;
+  FlickableDialogListener.OnFlickedX onFlickedXListener;
+  FlickableDialogListener.OnFlicking onFlickingListener;
+
+  @Override public void onAttach(Context context) {
+    super.onAttach(context);
+
+    Object anyListener = getParentFragment();
+    if (anyListener == null) {
+      anyListener = getActivity();
+      if (anyListener == null) {
+        throw new IllegalStateException("cannot attach flickable dialog");
+      }
+      if (anyListener instanceof FlickableDialogListener.OnFlickedCross) {
+        onFlickedCrossListener = (FlickableDialogListener.OnFlickedCross)anyListener;
+      }
+      if (anyListener instanceof FlickableDialogListener.OnFlickedX) {
+        onFlickedXListener = (FlickableDialogListener.OnFlickedX)anyListener;
+      }
+      if (anyListener instanceof FlickableDialogListener.OnFlicking) {
+        onFlickingListener = (FlickableDialogListener.OnFlicking)anyListener;
+      }
+    }
   }
 
   @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -168,6 +188,10 @@ public class FlickableDialog extends DialogFragment {
             return true;
           }
         }).doOnNext(new Action1<Pair<View, MotionEvent>>() {
+          @Override public void call(Pair<View, MotionEvent> viewMotionEventPair) {
+
+          }
+        }).doOnNext(new Action1<Pair<View, MotionEvent>>() {
           @Override public void call(Pair<View, MotionEvent> pair) {
 
             final MotionEvent event = pair.second;
@@ -228,8 +252,24 @@ public class FlickableDialog extends DialogFragment {
     return eventRawY < verticalCenter;
   }
 
+  @Override
+  public void onDetach() {
+
+    onFlickedCrossListener = null;
+    onFlickedXListener = null;
+    onFlickingListener = null;
+
+    super.onDetach();
+  }
+
   @Override public void onDismiss(DialogInterface dialogInterface) {
+
     compositeSubscription.unsubscribe();
+
+    onFlickedCrossListener = null;
+    onFlickedXListener = null;
+    onFlickingListener = null;
+
     super.onDismiss(dialogInterface);
   }
 }
