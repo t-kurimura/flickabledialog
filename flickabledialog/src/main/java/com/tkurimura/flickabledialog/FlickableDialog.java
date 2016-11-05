@@ -135,6 +135,49 @@ public class FlickableDialog extends DialogFragment {
       frameLayout.setBackgroundColor(Color.argb(100, 0, 0, 0));
     }
 
+    compositeSubscription.add(Observable.create(new Observable.OnSubscribe<View>() {
+      @Override public void call(final Subscriber<? super View> subscriber) {
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+          @Override public void onClick(View v) {
+            subscriber.onNext(v);
+          }
+        });
+      }
+    }).filter(new Func1<View, Boolean>() {
+      @Override public Boolean call(View view) {
+        return cancelAndDismissTaken;
+      }
+    }).flatMap(new Func1<View, Observable<ObjectAnimator>>() {
+      @Override public Observable<ObjectAnimator> call(View view) {
+        ObjectAnimator alphaAnimation =
+            ObjectAnimator.ofFloat(frameLayout, "alpha", 1f, 0f);
+        alphaAnimation.setDuration(300);
+
+        return null;
+      }
+    }).flatMap(new Func1<ObjectAnimator, Observable<?>>() {
+      @Override public Observable<?> call(ObjectAnimator objectAnimator) {
+
+        objectAnimator.start();
+
+        return Observable.just(1)
+            .delay(300, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread());
+      }
+    }).subscribe(new Subscriber<Object>() {
+      @Override public void onCompleted() {
+
+      }
+
+      @Override public void onError(Throwable e) {
+
+      }
+
+      @Override public void onNext(Object o) {
+        dismiss();
+      }
+    }));
+
     compositeSubscription.add(
         Observable.create(new Observable.OnSubscribe<Pair<View, MotionEvent>>() {
           @Override public void call(final Subscriber<? super Pair<View, MotionEvent>> subscriber) {
@@ -482,30 +525,6 @@ public class FlickableDialog extends DialogFragment {
             alphaAnimation.setDuration(200);
             alphaAnimation.start();
 
-            if (cancelAndDismissTaken) {
-              frameLayout.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                  ObjectAnimator alphaAnimation =
-                      ObjectAnimator.ofFloat(frameLayout, "alpha", 1f, 0f);
-                  alphaAnimation.setDuration(300);
-                  alphaAnimation.addListener(new Animator.AnimatorListener() {
-                    @Override public void onAnimationStart(Animator animation) {
-                    }
-
-                    @Override public void onAnimationEnd(Animator animation) {
-                      dismiss();
-                    }
-
-                    @Override public void onAnimationCancel(Animator animation) {
-                    }
-
-                    @Override public void onAnimationRepeat(Animator animation) {
-                    }
-                  });
-                  alphaAnimation.start();
-                }
-              });
-            }
           }
         }).subscribe(new Action1<Pair<View, MotionEvent>>() {
           @Override public void call(Pair<View, MotionEvent> view) {
