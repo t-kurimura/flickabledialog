@@ -1,6 +1,5 @@
 package com.tkurimura.flickabledialog;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 
@@ -14,8 +13,8 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
 import android.util.Pair;
@@ -45,9 +44,7 @@ public class FlickableDialog extends DialogFragment {
   private static final String DISMISS_THRESHOLD_KEY = "layout_resource_bundle_key";
   private static final String BACKGROUND_COLOR_RESOURCE_KEY = "color_resource_bundle_key";
   boolean touchedTopArea;
-  @Nullable FlickableDialogListener.OnFlickedCross onFlickedCrossListener;
-  @Nullable FlickableDialogListener.OnOriginBack onOriginBackListener;
-  @Nullable FlickableDialogListener.OnFlicking onFlickingListener;
+
   private float DISMISS_THRESHOLD = 700f;
   private float ROTATE_ANIMATION_EXPONENT = 30f;
   private CompositeSubscription compositeSubscription = new CompositeSubscription();
@@ -57,6 +54,7 @@ public class FlickableDialog extends DialogFragment {
   private Integer defaultTop;
   private boolean cancelAndDismissTaken = true;
   private boolean cancelable = false;
+  private FlickableDialogListener flickableDialogListeners;
 
   public static FlickableDialog newInstance(@LayoutRes int layoutResources) {
 
@@ -65,6 +63,19 @@ public class FlickableDialog extends DialogFragment {
 
     FlickableDialog flickableDialog = new FlickableDialog();
     flickableDialog.setArguments(bundle);
+
+    return flickableDialog;
+  }
+
+  public static FlickableDialog newInstance(Fragment fragment, @LayoutRes int layoutResources) {
+
+    Bundle bundle = new Bundle();
+    bundle.putInt(LAYOUT_RESOURCE_KEY, layoutResources);
+
+    FlickableDialog flickableDialog = new FlickableDialog();
+    flickableDialog.setArguments(bundle);
+    flickableDialog.setTargetFragment(fragment, 0);
+
     return flickableDialog;
   }
 
@@ -95,25 +106,40 @@ public class FlickableDialog extends DialogFragment {
     return flickableDialog;
   }
 
+  public static FlickableDialog newInstance(Fragment fragment, @LayoutRes int layoutResources,
+      float animationThreshold, float rotateAnimationAmount, @ColorRes int backgroundColor) {
+
+    Bundle bundle = new Bundle();
+    bundle.putInt(LAYOUT_RESOURCE_KEY, layoutResources);
+
+    if (animationThreshold != 0) {
+
+      bundle.putFloat(DISMISS_THRESHOLD_KEY, animationThreshold);
+    }
+    if (rotateAnimationAmount != 0) {
+
+      bundle.putFloat(ROTATE_ANIMATION_KEY, rotateAnimationAmount);
+    }
+
+    if (backgroundColor != 0) {
+
+      bundle.putInt(BACKGROUND_COLOR_RESOURCE_KEY, backgroundColor);
+    }
+
+    FlickableDialog flickableDialog = new FlickableDialog();
+
+    flickableDialog.setArguments(bundle);
+
+    flickableDialog.setTargetFragment(fragment, 0);
+
+    return flickableDialog;
+  }
+
   @Override public void onAttach(Context context) {
     super.onAttach(context);
 
-    Object anyListener = getParentFragment();
-    if (anyListener == null) {
-      anyListener = getActivity();
-      if (anyListener == null) {
-        throw new IllegalStateException("cannot attach flickable dialog");
-      }
-      if (anyListener instanceof FlickableDialogListener.OnFlickedCross) {
-        onFlickedCrossListener = (FlickableDialogListener.OnFlickedCross) anyListener;
-      }
-      if (anyListener instanceof FlickableDialogListener.OnOriginBack) {
-        onOriginBackListener = (FlickableDialogListener.OnOriginBack) anyListener;
-      }
-      if (anyListener instanceof FlickableDialogListener.OnFlicking) {
-        onFlickingListener = (FlickableDialogListener.OnFlicking) anyListener;
-      }
-    }
+    flickableDialogListeners = new FlickableDialogListener();
+    flickableDialogListeners.holdListeners(getActivity());
   }
 
   @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -149,8 +175,7 @@ public class FlickableDialog extends DialogFragment {
       }
     }).flatMap(new Func1<View, Observable<ObjectAnimator>>() {
       @Override public Observable<ObjectAnimator> call(View view) {
-        ObjectAnimator alphaAnimation =
-            ObjectAnimator.ofFloat(frameLayout, "alpha", 1f, 0f);
+        ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(frameLayout, "alpha", 1f, 0f);
         alphaAnimation.setDuration(300);
 
         return null;
@@ -302,6 +327,8 @@ public class FlickableDialog extends DialogFragment {
             }).doOnNext(new Action1<Pair<Integer, Integer>>() {
               // call back moved delta amount
               @Override public void call(Pair<Integer, Integer> deltaXYPair) {
+                FlickableDialogListener.OnFlicking onFlickingListener =
+                    flickableDialogListeners.getOnFlickingListener(FlickableDialog.this);
                 if (onFlickingListener != null) {
 
                   int percentageX = (int) (deltaXYPair.first / DISMISS_THRESHOLD);
@@ -363,6 +390,9 @@ public class FlickableDialog extends DialogFragment {
                       })
                       .doOnNext(new Action1<Object>() {
                         @Override public void call(Object o) {
+                          FlickableDialogListener.OnOriginBack onOriginBackListener =
+                              flickableDialogListeners.getOnOriginBackListener(
+                                  FlickableDialog.this);
                           if (onOriginBackListener != null) {
                             onOriginBackListener.onOriginBack();
                           }
@@ -490,6 +520,8 @@ public class FlickableDialog extends DialogFragment {
                 .doOnNext(new Action1<Pair<Integer, Integer>>() {
                   // call back X direction
                   @Override public void call(Pair<Integer, Integer> integerIntegerPair) {
+                    FlickableDialogListener.OnFlickedCross onFlickedCrossListener =
+                        flickableDialogListeners.getOnFlickedCrossListener(FlickableDialog.this);
                     if (onFlickedCrossListener != null) {
                       if (integerIntegerPair.first < 0) {
                         if (integerIntegerPair.second < 0) {
@@ -524,7 +556,6 @@ public class FlickableDialog extends DialogFragment {
             ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(frameLayout, "alpha", 0f, 1f);
             alphaAnimation.setDuration(200);
             alphaAnimation.start();
-
           }
         }).subscribe(new Action1<Pair<View, MotionEvent>>() {
           @Override public void call(Pair<View, MotionEvent> view) {
@@ -552,9 +583,7 @@ public class FlickableDialog extends DialogFragment {
 
     compositeSubscription.unsubscribe();
 
-    onFlickedCrossListener = null;
-    onOriginBackListener = null;
-    onFlickingListener = null;
+    flickableDialogListeners.destroyListeners();
 
     super.onDetach();
   }
@@ -563,9 +592,7 @@ public class FlickableDialog extends DialogFragment {
 
     compositeSubscription.unsubscribe();
 
-    onFlickedCrossListener = null;
-    onOriginBackListener = null;
-    onFlickingListener = null;
+    flickableDialogListeners.destroyListeners();
 
     super.onDismiss(dialogInterface);
   }
