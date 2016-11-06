@@ -50,7 +50,7 @@ public class FlickableDialogListener {
 
   @Nullable private FlickableDialogListener.OnFlicking onFlickingListener;
 
-  public void holdListeners(Activity activity) {
+  void holdListeners(Activity activity) {
     Object anyListener = activity;
     if (anyListener == null) {
       throw new IllegalStateException("cannot attach flickable dialog");
@@ -67,7 +67,7 @@ public class FlickableDialogListener {
     }
   }
 
-  @Nullable public OnFlickedCross getOnFlickedCrossListener(FlickableDialog flickableDialog) {
+  @Nullable OnFlickedCross getOnFlickedCrossListener(FlickableDialog flickableDialog) {
 
     if (onFlickedCrossListener != null) {
       return onFlickedCrossListener;
@@ -81,7 +81,7 @@ public class FlickableDialogListener {
     return null;
   }
 
-  @Nullable public OnOriginBack getOnOriginBackListener(FlickableDialog flickableDialog) {
+  @Nullable OnOriginBack getOnOriginBackListener(FlickableDialog flickableDialog) {
 
     if (onOriginBackListener != null) {
       return onOriginBackListener;
@@ -95,7 +95,7 @@ public class FlickableDialogListener {
     return null;
   }
 
-  @Nullable public OnFlicking getOnFlickingListener(FlickableDialog flickableDialog) {
+  @Nullable OnFlicking getOnFlickingListener(FlickableDialog flickableDialog) {
 
     if (onFlickingListener != null) {
       return onFlickingListener;
@@ -109,7 +109,7 @@ public class FlickableDialogListener {
     return null;
   }
 
-  public void destroyListeners(){
+  void destroyListeners(){
 
     onFlickedCrossListener = null;
     onOriginBackListener = null;
