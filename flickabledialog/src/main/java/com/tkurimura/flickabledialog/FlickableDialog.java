@@ -173,12 +173,12 @@ public class FlickableDialog extends DialogFragment {
       @Override public Boolean call(View view) {
         return cancelAndDismissTaken;
       }
-    }).flatMap(new Func1<View, Observable<ObjectAnimator>>() {
-      @Override public Observable<ObjectAnimator> call(View view) {
+    }).map(new Func1<View, ObjectAnimator>() {
+      @Override public ObjectAnimator call(View view) {
         ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(frameLayout, "alpha", 1f, 0f);
         alphaAnimation.setDuration(300);
 
-        return null;
+        return alphaAnimation;
       }
     }).flatMap(new Func1<ObjectAnimator, Observable<?>>() {
       @Override public Observable<?> call(ObjectAnimator objectAnimator) {
