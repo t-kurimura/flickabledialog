@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="12dp"
+    android:background="@drawable/background_dialog_sample"
+    android:orientation="vertical"
+    android:padding="30dp"
+    >
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginLeft="24dp"
+      android:layout_marginRight="24dp"
+      android:text="Buy premium?"
+      android:textSize="24sp"
+      android:textStyle="bold"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:text="You can ..."
+      android:textColor="@android:color/darker_gray"
+      android:textSize="18sp"
+      android:layout_marginTop="24dp"
+      />
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_margin="8dp"
+        >
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:src="@drawable/ic_favoirte_black"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:text="Favorite"
+          android:textColor="@android:color/darker_gray"
+          android:textSize="18sp"
+          />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        >
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:src="@drawable/ic_store_black"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:text="Store"
+          android:textColor="@android:color/darker_gray"
+          android:textSize="18sp"
+          />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        >
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:src="@drawable/ic_share_black"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:text="Share"
+          android:textColor="@android:color/darker_gray"
+          android:textSize="18sp"
+          />
+    </LinearLayout>
+  </LinearLayout>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:text="$10.99"
+      android:textSize="24sp"
+      android:layout_marginTop="16dp"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:text="per month"
+      android:textSize="14sp"
+      />
+
+  <TextView
+      android:id="@+id/dialog_premium_appeal_buy"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:gravity="center"
+      android:text="Buy now"
+      android:elevation="2dp"
+      android:layout_marginBottom="4dp"
+      android:background="@drawable/background_premium_button"
+      android:paddingTop="4dp"
+      android:paddingBottom="4dp"
+      android:paddingRight="40dp"
+      android:paddingLeft="40dp"
+      android:layout_marginTop="24dp"
+      android:textSize="20sp"
+      android:textColor="@android:color/white"
+      />
+
+</LinearLayout>

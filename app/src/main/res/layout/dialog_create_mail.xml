@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_margin="12dp"
+    android:paddingTop="24dp"
+    android:background="@drawable/background_dialog_sample">
+
+  <TextView
+      android:id="@+id/dialog_sample_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="24dp"
+      android:layout_marginRight="24dp"
+      android:text="Discard your draft mail?"
+      android:textSize="18sp"/>
+
+  <TextView
+      android:id="@+id/dialog_caution_message"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="24dp"
+      android:layout_marginLeft="24dp"
+      android:layout_marginRight="24dp"
+      android:text="If you create new mail, your draft will be discarded."
+      android:textSize="16sp"/>
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="36dp"
+      android:layout_gravity="right|end"
+      android:layout_margin="8dp">
+
+    <TextView
+        android:id="@+id/dialog_sample_negative_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:minWidth="64dp"
+        android:layout_marginRight="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Cancel"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/dialog_sample_positive_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:minWidth="13sp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Discard"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"/>
+  </LinearLayout>
+</LinearLayout>
