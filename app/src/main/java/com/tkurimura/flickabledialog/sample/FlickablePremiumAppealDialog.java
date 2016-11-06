@@ -13,11 +13,11 @@ import com.tkurimura.flickabledialog.FlickableDialog;
  * Created by TakahisaKurimura on 2016/11/07.
  */
 
-public class FlackablePremiumAppealDialog extends FlickableDialog {
+public class FlickablePremiumAppealDialog extends FlickableDialog {
 
-  public static FlackablePremiumAppealDialog newInstance(Fragment fragment){
+  public static FlickablePremiumAppealDialog newInstance(Fragment fragment){
 
-    FlackablePremiumAppealDialog flackablePremiumAppealDialog = new FlackablePremiumAppealDialog();
+    FlickablePremiumAppealDialog flackablePremiumAppealDialog = new FlickablePremiumAppealDialog();
     Bundle bundle = new Bundle();
     bundle.putInt(LAYOUT_RESOURCE_KEY,R.layout.dialog_premium_apple);
     flackablePremiumAppealDialog.setTargetFragment(fragment,0);

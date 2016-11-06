@@ -47,8 +47,8 @@ public class PremiumAppealFragment extends Fragment implements FlickableDialogLi
       @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(isChecked){
 
-          FlackablePremiumAppealDialog flackablePremiumAppealDialog = FlackablePremiumAppealDialog.newInstance(PremiumAppealFragment.this);
-          flackablePremiumAppealDialog.show(getFragmentManager(),FlickableDialog.class.getSimpleName());
+          FlickablePremiumAppealDialog flickablePremiumAppealDialog = FlickablePremiumAppealDialog.newInstance(PremiumAppealFragment.this);
+          flickablePremiumAppealDialog.show(getFragmentManager(),FlickableDialog.class.getSimpleName());
         }
       }
     });
