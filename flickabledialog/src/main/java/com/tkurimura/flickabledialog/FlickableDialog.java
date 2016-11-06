@@ -43,7 +43,7 @@ public class FlickableDialog extends DialogFragment {
   protected static final String ROTATE_ANIMATION_KEY = "rotate_animation_key";
   protected static final String DISMISS_THRESHOLD_KEY = "layout_resource_bundle_key";
   protected static final String BACKGROUND_COLOR_RESOURCE_KEY = "color_resource_bundle_key";
-  boolean touchedTopArea;
+  private boolean touchedTopArea;
 
   private float DISMISS_THRESHOLD = 700f;
   private float ROTATE_ANIMATION_EXPONENT = 30f;
