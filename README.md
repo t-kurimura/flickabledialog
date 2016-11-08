@@ -8,12 +8,12 @@ You can show your infromation to users with minimum stress.
 Gradle : 
 
 ```
-compile 'com.tkurimura:flickabledialog:0.1.1'
+compile 'com.tkurimura:flickabledialog:0.3.0'
 ```
 
 ## Require
 
-java7 and Android minimum sdk11 (Andorid 3.0)
+Java7 and Android minimum API level (SDK) 11 (Andorid 3.0)
 
 ## Usage
 
