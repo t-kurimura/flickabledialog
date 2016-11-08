@@ -6,25 +6,100 @@
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main"
     tools:context="com.tkurimura.flickabledialog.sample.MainActivity">
+        />
+
+  <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:src="@drawable/review_appeal_sample"
+      android:scaleType="centerCrop"
+      />
+
+  <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:src="@drawable/review_appeal_blur"
+      />
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:orientation="vertical"
+      >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:text="Your score is ..."
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is mail fragment." />
+        android:textStyle="bold"
+        android:textSize="48sp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:text="35pt"
+        />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_marginTop="40dp"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:text="TIME  03:12"
+        />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:text="POINT  3"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:text="LIFE  3"
+        />
+
+    <TextView
+        android:id="@+id/next_game_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/background_next_game_button"
+        android:layout_gravity="center_horizontal"
+        android:text="NEXT GAME"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="28dp"
+        android:paddingLeft="28dp"
+        android:enabled="true"
+        android:clickable="true"
+        />
+
+  </LinearLayout>
 </RelativeLayout>

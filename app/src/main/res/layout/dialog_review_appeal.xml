@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="25dp"
+      android:textStyle="bold"
+      android:textColor="@android:color/white"
+      android:background="@android:color/black"
+      android:text="How is this app?"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginBottom="12dp"
+      android:padding="4dp"
+      />
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="6dp">
+
+    <RelativeLayout
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/top_left"
+        android:padding="12dp"
+        >
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentRight="true"
+          android:text="Well"
+          android:textSize="22dp"
+          />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginLeft="6dp"
+        android:background="@drawable/top_right"
+        android:padding="12dp"
+        >
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentLeft="true"
+          android:text="Great"
+          android:textSize="22dp"
+          />
+
+    </RelativeLayout>
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="6dp">
+
+
+  <RelativeLayout
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/bottom_left"
+        android:padding="12dp"
+        >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:textSize="22dp"
+        android:text="Bad"
+        android:textColor="#e4d1a6"
+        />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginLeft="6dp"
+        android:background="@drawable/bottom_right"
+        android:padding="12dp"
+        >
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:layout_alignParentLeft="true"
+          android:text="Good"
+          android:textSize="22dp"
+
+          />
+
+    </RelativeLayout>
+
+
+  </LinearLayout>
+
+</LinearLayout>
