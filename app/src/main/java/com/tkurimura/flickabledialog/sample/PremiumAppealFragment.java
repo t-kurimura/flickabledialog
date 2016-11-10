@@ -16,7 +16,8 @@ import com.tkurimura.flickabledialog.FlickableDialogListener;
  * Created by TakahisaKurimura on 2016/11/06.
  */
 
-public class PremiumAppealFragment extends Fragment implements FlickableDialogListener.OnFlickedCross{
+public class PremiumAppealFragment extends Fragment implements
+    FlickableDialogListener.OnFlickedXDirection {
 
   Switch switchView;
 
@@ -54,7 +55,7 @@ public class PremiumAppealFragment extends Fragment implements FlickableDialogLi
     });
   }
 
-  @Override public void onFlicked(FlickableDialogListener.X_DIRECTION xDirection) {
+  @Override public void onFlickableDialogFlicked(FlickableDialogListener.X_DIRECTION xDirection) {
     switchView.setChecked(false);
   }
 }

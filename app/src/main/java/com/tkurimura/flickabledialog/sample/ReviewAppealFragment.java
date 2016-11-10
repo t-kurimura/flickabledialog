@@ -6,14 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.sample.R;
 import com.tkurimura.flickabledialog.FlickableDialog;
+import com.tkurimura.flickabledialog.FlickableDialogListener;
 
 /**
  * Created by TakahisaKurimura on 2016/11/06.
  */
 
-public class ReviewAppealFragment extends Fragment {
+public class ReviewAppealFragment extends Fragment implements FlickableDialogListener.OnFlickedXDirection{
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,13 @@ public class ReviewAppealFragment extends Fragment {
     nextButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
-        FlickableDialog flickableDialog = FlickableDialog.newInstance(R.layout.dialog_review_appeal);
+        FlickableReviewAppealDialog flickableDialog = FlickableReviewAppealDialog.newInstance();
         flickableDialog.show(getChildFragmentManager(),FlickableDialog.class.getSimpleName());
       }
     });
+  }
+
+  @Override public void onFlickableDialogFlicked(FlickableDialogListener.X_DIRECTION xDirection) {
+    Toast.makeText(getContext(),xDirection.toString(),Toast.LENGTH_LONG).show();
   }
 }

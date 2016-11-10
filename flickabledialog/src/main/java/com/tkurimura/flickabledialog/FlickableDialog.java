@@ -306,7 +306,7 @@ public class FlickableDialog extends DialogFragment {
               @Override public void call(Pair<Integer, Integer> deltaXYPair) {
                 float percentageX = deltaXYPair.first / DISMISS_THRESHOLD;
                 float percentageY = deltaXYPair.second / DISMISS_THRESHOLD;
-                onFlicking(percentageX, percentageY);
+                onFlicking(-percentageX, percentageY);
               }
             }).map(new Func1<Pair<Integer, Integer>, Pair<View, MotionEvent>>() {
               @Override

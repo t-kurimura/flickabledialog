@@ -24,6 +24,7 @@
       android:layout_marginBottom="6dp">
 
     <RelativeLayout
+        android:id="@+id/dialog_review_top_left"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_marginRight="6dp"
@@ -43,6 +44,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/dialog_review_top_right"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_marginLeft="6dp"
@@ -70,6 +72,7 @@
 
 
   <RelativeLayout
+        android:id="@+id/dialog_review_bottom_left"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_marginRight="6dp"
@@ -90,6 +93,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/dialog_review_bottom_right"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_marginLeft="6dp"
