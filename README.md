@@ -1,34 +1,139 @@
-# flickabledialog
+# FlickableDialog
 	
 This dialog can flick and make it easy to dismiss sensuously.
 You can show your infromation to users with minimum stress.
+And, users can swipe dialog to select options extremley easy!
 
 ## Download 
 
 Gradle : 
 
 ```
-compile 'com.tkurimura:flickabledialog:0.3.0'
+compile 'com.tkurimura:flickabledialog:0.9.0'
 ```
 
 ## Require
 
-Java7 and Android minimum API level (SDK) 11 (Andorid 3.0)
+Java7 and Android minimum API level(SDK) 11 (Andorid 3.0)
+
+## Usecase demo 
+
+|AlertDialog|Premium appeal|
+|---|---|
+|![AlertDialog](https://github.com/t-kurimura/flickabledialog/blob/master/alert_dialog.gif)|![Premium](https://github.com/t-kurimura/flickabledialog/blob/master/premium_appeal.gif)|
+|---|---|
+|Profile setting|Review popup|
+|in develop|![Review](https://github.com/t-kurimura/flickabledialog/blob/master/review_popup.gif)|
+
 
 ## Usage
 
+### Show
+
+* Call from Activity
+
+Attention to use `getSupportFragmentManager()` as argument in dialog.show(,);
+
 ```
+// simple way to call
 FlickableDialog dialog = FlickableDialog.newInstance(R.layout.your_dialog_layout);
 dialog.show(getSupportFragmentManager(),dialog.getClass().getSimpleName());
+```
 
 ```
-and you can override FlickableDialog with any additional function
 
-## Sample 
+// you can define detail flicking settings 
+FlickableDialog dialog = FlickableDialog.newInstance(
+	R.layout.your_dialog_layout, // dialog content layout resource Id
+	800f, // the area raidus dialog will come back to original position (default : 700f)
+	50f, // slope when you flick dialog to side direction (default : 30f)
+	R.color.colorAccent); // background color of the area where dialog dismiss if you touch
 
-![Flick](https://github.com/t-kurimura/flickabledialog/blob/master/sample_throw.gif)
+dialog.show(getSupportFragmentManager(),dialog.getClass().getSimpleName()); 
 
-![come back](https://github.com/t-kurimura/flickabledialog/blob/master/sample_back.gif)
+```
+
+* Call from Fragment
+
+Attention to use `getChildFragmentManager()` as argument in dialog.show(,);
+
+```
+// simple way to call
+FlickableDialog dialog = FlickableDialog.newInstance(R.layout.your_dialog_layout);
+dialog.show(getChildFragmentManager(),dialog.getClass().getSimpleName());
+```
+
+```
+// you can define detail flicking settings 
+FlickableDialog dialog = FlickableDialog.newInstance(
+	R.layout.your_dialog_layout, // dialog content layout resource Id
+	800f, // the area raidus dialog will come back to original position (default : 700f)
+	50f, // slope when you flick dialog to side direction (default : 30f)
+	R.color.colorAccent); // background color of the area where dialog dismiss if you touch
+
+dialog.show(getSupportFragmentManager(),dialog.getClass().getSimpleName());
+```
+
+### Callback
+
+you implement `FlickableDialogListener.OnFlickedXDirection` in Activity or Fragment.
+
+* On flicked
+```
+HogeActivity extend Activity implement FlickableDialogListener.OnFlickedXDirection{
+
+	@Override 
+	public void onFlickableDialogFlicked(FlickableDialogListener.X_DIRECTION xDirection) {
+		// do something according to flicked direction
+		if(xDirection.equals(LEFT_BOTTOM)){
+			doSomething();
+		}
+	}
+}
+```
+
+* On Cancel
+
+onCancel is callbacked when user touched outside or 
+
+```
+FugaFragment extend Fragment implement FlickableDialogListener.OnCanceled{
+
+	@Override 
+	public void onFlickableDialogCanceled() {
+		getActivity().finish();
+	}
+}
+```
+
+### Custom
+
+```
+public class FlickableHogeDialog extends FlickableDialog {
+
+  public static FlickableHogeDialog newInstance(Fragment fragment){
+
+    FlickableHogeDialog flackablePremiumAppealDialog = new FlickableHogeDialog();
+    Bundle bundle = new Bundle();
+    bundle.putInt(LAYOUT_RESOURCE_KEY,R.layout.dialog_premium_apple);
+    flackablePremiumAppealDialog.setTargetFragment(fragment,0);
+    flackablePremiumAppealDialog.setArguments(bundle);
+
+    return flackablePremiumAppealDialog;
+  }
+
+  @Override
+  public void onFlicking(float verticalPercentage, float horizontalPercentage) {
+  	// callback when dialog moves according to flicks
+  	changeStatus();
+  }
+
+  @Override
+  public void onOriginBack() {
+  	// when dialog position came back to default position
+  }
+```
+
 
 ## Liscense
 
