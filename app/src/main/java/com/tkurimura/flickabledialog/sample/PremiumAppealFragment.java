@@ -48,7 +48,7 @@ public class PremiumAppealFragment extends Fragment implements FlickableDialogLi
         if(isChecked){
 
           FlickablePremiumAppealDialog flickablePremiumAppealDialog = FlickablePremiumAppealDialog.newInstance(PremiumAppealFragment.this);
-          flickablePremiumAppealDialog.show(getFragmentManager(),FlickableDialog.class.getSimpleName());
+          flickablePremiumAppealDialog.show(getChildFragmentManager(),FlickableDialog.class.getSimpleName());
         }
       }
     });

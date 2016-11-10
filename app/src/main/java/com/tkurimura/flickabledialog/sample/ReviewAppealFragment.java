@@ -34,8 +34,8 @@ public class ReviewAppealFragment extends Fragment {
     nextButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
-        FlickableDialog flickableDialog = FlickableDialog.newInstance(ReviewAppealFragment.this,R.layout.dialog_review_appeal);
-        flickableDialog.show(getFragmentManager(),FlickableDialog.class.getSimpleName());
+        FlickableDialog flickableDialog = FlickableDialog.newInstance(R.layout.dialog_review_appeal);
+        flickableDialog.show(getChildFragmentManager(),FlickableDialog.class.getSimpleName());
       }
     });
   }
