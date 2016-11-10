@@ -14,7 +14,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
 import android.util.Pair;
@@ -67,18 +66,6 @@ public class FlickableDialog extends DialogFragment {
     return flickableDialog;
   }
 
-  public static FlickableDialog newInstance(Fragment fragment, @LayoutRes int layoutResources) {
-
-    Bundle bundle = new Bundle();
-    bundle.putInt(LAYOUT_RESOURCE_KEY, layoutResources);
-
-    FlickableDialog flickableDialog = new FlickableDialog();
-    flickableDialog.setArguments(bundle);
-    flickableDialog.setTargetFragment(fragment, 0);
-
-    return flickableDialog;
-  }
-
   public static FlickableDialog newInstance(@LayoutRes int layoutResources,
       float animationThreshold, float rotateAnimationAmount, @ColorRes int backgroundColor) {
 
@@ -106,40 +93,9 @@ public class FlickableDialog extends DialogFragment {
     return flickableDialog;
   }
 
-  public static FlickableDialog newInstance(Fragment fragment, @LayoutRes int layoutResources,
-      float animationThreshold, float rotateAnimationAmount, @ColorRes int backgroundColor) {
-
-    Bundle bundle = new Bundle();
-    bundle.putInt(LAYOUT_RESOURCE_KEY, layoutResources);
-
-    if (animationThreshold != 0) {
-
-      bundle.putFloat(DISMISS_THRESHOLD_KEY, animationThreshold);
-    }
-    if (rotateAnimationAmount != 0) {
-
-      bundle.putFloat(ROTATE_ANIMATION_KEY, rotateAnimationAmount);
-    }
-
-    if (backgroundColor != 0) {
-
-      bundle.putInt(BACKGROUND_COLOR_RESOURCE_KEY, backgroundColor);
-    }
-
-    FlickableDialog flickableDialog = new FlickableDialog();
-
-    flickableDialog.setArguments(bundle);
-
-    flickableDialog.setTargetFragment(fragment, 0);
-
-    return flickableDialog;
-  }
-
   @Override public void onAttach(Context context) {
     super.onAttach(context);
-
-    flickableDialogListeners = new FlickableDialogListener();
-    flickableDialogListeners.holdListeners(getActivity());
+    flickableDialogListeners = new FlickableDialogListener(this);
   }
 
   @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -328,7 +284,7 @@ public class FlickableDialog extends DialogFragment {
               // call back moved delta amount
               @Override public void call(Pair<Integer, Integer> deltaXYPair) {
                 FlickableDialogListener.OnFlicking onFlickingListener =
-                    flickableDialogListeners.getOnFlickingListener(FlickableDialog.this);
+                    flickableDialogListeners.getOnFlickingListener();
                 if (onFlickingListener != null) {
 
                   int percentageX = (int) (deltaXYPair.first / DISMISS_THRESHOLD);
@@ -391,8 +347,7 @@ public class FlickableDialog extends DialogFragment {
                       .doOnNext(new Action1<Object>() {
                         @Override public void call(Object o) {
                           FlickableDialogListener.OnOriginBack onOriginBackListener =
-                              flickableDialogListeners.getOnOriginBackListener(
-                                  FlickableDialog.this);
+                              flickableDialogListeners.getOnOriginBackListener();
                           if (onOriginBackListener != null) {
                             onOriginBackListener.onOriginBack();
                           }
@@ -521,7 +476,7 @@ public class FlickableDialog extends DialogFragment {
                   // call back X direction
                   @Override public void call(Pair<Integer, Integer> integerIntegerPair) {
                     FlickableDialogListener.OnFlickedCross onFlickedCrossListener =
-                        flickableDialogListeners.getOnFlickedCrossListener(FlickableDialog.this);
+                        flickableDialogListeners.getOnFlickedCrossListener();
                     if (onFlickedCrossListener != null) {
                       if (integerIntegerPair.first < 0) {
                         if (integerIntegerPair.second < 0) {

@@ -1,10 +1,30 @@
 package com.tkurimura.flickabledialog;
 
-import android.app.Activity;
+
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
 public class FlickableDialogListener {
+
+  public FlickableDialogListener(FlickableDialog flickableDialog) {
+
+    Object anyListener = flickableDialog.getParentFragment();
+    if(anyListener == null){
+      anyListener = flickableDialog.getParentFragment();
+      if (anyListener == null) {
+        throw new IllegalStateException("cannot attach flickable dialog");
+      }
+    }
+
+    if (anyListener instanceof FlickableDialogListener.OnFlickedCross) {
+      onFlickedCrossListener = (FlickableDialogListener.OnFlickedCross) anyListener;
+    }
+    if (anyListener instanceof FlickableDialogListener.OnOriginBack) {
+      onOriginBackListener = (FlickableDialogListener.OnOriginBack) anyListener;
+    }
+    if (anyListener instanceof FlickableDialogListener.OnFlicking) {
+      onFlickingListener = (FlickableDialogListener.OnFlicking) anyListener;
+    }
+  }
 
   public enum X_DIRECTION {
 
@@ -50,63 +70,16 @@ public class FlickableDialogListener {
 
   @Nullable private FlickableDialogListener.OnFlicking onFlickingListener;
 
-  void holdListeners(Activity activity) {
-    Object anyListener = activity;
-    if (anyListener == null) {
-      throw new IllegalStateException("cannot attach flickable dialog");
-    }
-
-    if (anyListener instanceof FlickableDialogListener.OnFlickedCross) {
-      onFlickedCrossListener = (FlickableDialogListener.OnFlickedCross) anyListener;
-    }
-    if (anyListener instanceof FlickableDialogListener.OnOriginBack) {
-      onOriginBackListener = (FlickableDialogListener.OnOriginBack) anyListener;
-    }
-    if (anyListener instanceof FlickableDialogListener.OnFlicking) {
-      onFlickingListener = (FlickableDialogListener.OnFlicking) anyListener;
-    }
+  @Nullable OnFlickedCross getOnFlickedCrossListener() {
+    return onFlickedCrossListener;
   }
 
-  @Nullable OnFlickedCross getOnFlickedCrossListener(FlickableDialog flickableDialog) {
-
-    if (onFlickedCrossListener != null) {
-      return onFlickedCrossListener;
-    }
-
-    if (flickableDialog.getTargetFragment() instanceof OnFlickedCross) {
-      Fragment targetFragment = flickableDialog.getTargetFragment();
-      return ((OnFlickedCross) targetFragment);
-    }
-
-    return null;
+  @Nullable OnOriginBack getOnOriginBackListener() {
+    return onOriginBackListener;
   }
 
-  @Nullable OnOriginBack getOnOriginBackListener(FlickableDialog flickableDialog) {
-
-    if (onOriginBackListener != null) {
-      return onOriginBackListener;
-    }
-
-    if (flickableDialog.getTargetFragment() instanceof OnOriginBack) {
-      Fragment targetFragment = flickableDialog.getTargetFragment();
-      return ((OnOriginBack) targetFragment);
-    }
-
-    return null;
-  }
-
-  @Nullable OnFlicking getOnFlickingListener(FlickableDialog flickableDialog) {
-
-    if (onFlickingListener != null) {
-      return onFlickingListener;
-    }
-
-    if (flickableDialog.getTargetFragment() instanceof OnFlicking) {
-      Fragment targetFragment = flickableDialog.getTargetFragment();
-      return ((OnFlicking) targetFragment);
-    }
-
-    return null;
+  @Nullable OnFlicking getOnFlickingListener() {
+    return onFlickingListener;
   }
 
   void destroyListeners(){
