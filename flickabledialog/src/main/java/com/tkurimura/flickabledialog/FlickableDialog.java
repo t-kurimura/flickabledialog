@@ -104,7 +104,7 @@ public class FlickableDialog extends DialogFragment {
   public void onFlicking(int verticalPercentage, int horizontalPercentage) {}
 
   /**
-   * callback flicking direction in categorization of X area
+   * callback when dialog comes back to default position
    * This method is aimed to be overridden
    *
    * @version 0.4.0
@@ -518,7 +518,7 @@ public class FlickableDialog extends DialogFragment {
                     FlickableDialogListener.OnFlickedXDirection onFlickedXDirectionListener =
                         flickableDialogListeners.getOnFlickedXDirectionListener();
                     if (onFlickedXDirectionListener != null) {
-                      if (integerIntegerPair.first < 0) {
+                      if (integerIntegerPair.first > 0) {
                         if (integerIntegerPair.second < 0) {
                           onFlickedXDirectionListener.onFlickableDialogFlicked(
                               FlickableDialogListener.X_DIRECTION.LEFT_BOTTOM);
