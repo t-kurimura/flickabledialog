@@ -101,7 +101,7 @@ public class FlickableDialog extends DialogFragment {
    * @param horizontalPercentage horizontal flicking amount(-100 : left, 0 : origin. 100 : right)
    * @version 0.4.0
    */
-  public void onFlicking(int verticalPercentage, int horizontalPercentage) {}
+  public void onFlicking(float verticalPercentage, float horizontalPercentage) {}
 
   /**
    * callback when dialog comes back to default position
@@ -304,8 +304,8 @@ public class FlickableDialog extends DialogFragment {
             }).doOnNext(new Action1<Pair<Integer, Integer>>() {
               // call back moved delta amount
               @Override public void call(Pair<Integer, Integer> deltaXYPair) {
-                int percentageX = (int) (deltaXYPair.first / DISMISS_THRESHOLD);
-                int percentageY = (int) (deltaXYPair.second / DISMISS_THRESHOLD);
+                float percentageX = deltaXYPair.first / DISMISS_THRESHOLD;
+                float percentageY = deltaXYPair.second / DISMISS_THRESHOLD;
                 onFlicking(percentageX, percentageY);
               }
             }).map(new Func1<Pair<Integer, Integer>, Pair<View, MotionEvent>>() {
