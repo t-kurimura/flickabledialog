@@ -93,6 +93,24 @@ public class FlickableDialog extends DialogFragment {
     return flickableDialog;
   }
 
+  /**
+   * callback flicking amount from original position to dismiss threshold.
+   * This method is aimed to be overridden
+   *
+   * @param verticalPercentage vertical flicking amount(-100 : top, 0 : origin. 100 : right)
+   * @param horizontalPercentage horizontal flicking amount(-100 : left, 0 : origin. 100 : right)
+   * @version 0.4.0
+   */
+  public void onFlicking(int verticalPercentage, int horizontalPercentage) {}
+
+  /**
+   * callback flicking direction in categorization of X area
+   * This method is aimed to be overridden
+   *
+   * @version 0.4.0
+   */
+  public void onOriginBack() {}
+
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     flickableDialogListeners = new FlickableDialogListener(this);
@@ -144,6 +162,14 @@ public class FlickableDialog extends DialogFragment {
         return Observable.just(1)
             .delay(300, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread());
+      }
+    }).doOnNext(new Action1<Object>() {
+      @Override public void call(Object o) {
+
+        FlickableDialogListener.OnCanceled canceledListener = flickableDialogListeners.getOnFlickableDialogCanceledListener();
+        if(canceledListener != null){
+          canceledListener.onFlickableDialogCanceled();
+        }
       }
     }).subscribe(new Subscriber<Object>() {
       @Override public void onCompleted() {
@@ -258,6 +284,37 @@ public class FlickableDialog extends DialogFragment {
             previousX = (int) event.getRawX();
             previousY = (int) event.getRawY();
           }
+        }).flatMap(new Func1<Pair<View, MotionEvent>, Observable<Pair<View, MotionEvent>>>() {
+          @Override
+          public Observable<Pair<View, MotionEvent>> call(final Pair<View, MotionEvent> pair) {
+
+            return Observable.just(pair).map(new Func1<Pair<View, MotionEvent>, View>() {
+              @Override public View call(Pair<View, MotionEvent> pair) {
+                return pair.first;
+              }
+            }).map(new Func1<View, Pair<Integer, Integer>>() {
+              // convert to delta amounts between origin and current position
+              @Override public Pair<Integer, Integer> call(View rootView) {
+
+                int deltaX = defaultLeft - rootView.getLeft();
+                int deltaY = defaultTop - rootView.getTop();
+
+                return Pair.create(deltaX, deltaY);
+              }
+            }).doOnNext(new Action1<Pair<Integer, Integer>>() {
+              // call back moved delta amount
+              @Override public void call(Pair<Integer, Integer> deltaXYPair) {
+                int percentageX = (int) (deltaXYPair.first / DISMISS_THRESHOLD);
+                int percentageY = (int) (deltaXYPair.second / DISMISS_THRESHOLD);
+                onFlicking(percentageX, percentageY);
+              }
+            }).map(new Func1<Pair<Integer, Integer>, Pair<View, MotionEvent>>() {
+              @Override
+              public Pair<View, MotionEvent> call(Pair<Integer, Integer> integerIntegerPair) {
+                return pair;
+              }
+            });
+          }
         }).filter(new Func1<Pair<View, MotionEvent>, Boolean>() {
           @Override public Boolean call(Pair<View, MotionEvent> pair) {
             return pair.second.getAction() == MotionEvent.ACTION_UP;
@@ -279,19 +336,6 @@ public class FlickableDialog extends DialogFragment {
                 int deltaY = defaultTop - rootView.getTop();
 
                 return Pair.create(deltaX, deltaY);
-              }
-            }).doOnNext(new Action1<Pair<Integer, Integer>>() {
-              // call back moved delta amount
-              @Override public void call(Pair<Integer, Integer> deltaXYPair) {
-                FlickableDialogListener.OnFlicking onFlickingListener =
-                    flickableDialogListeners.getOnFlickingListener();
-                if (onFlickingListener != null) {
-
-                  int percentageX = (int) (deltaXYPair.first / DISMISS_THRESHOLD);
-                  int percentageY = (int) (deltaXYPair.second / DISMISS_THRESHOLD);
-
-                  onFlickingListener.onFlicked(percentageX, percentageY);
-                }
               }
             }).flatMap(new Func1<Pair<Integer, Integer>, Observable<Pair<View, MotionEvent>>>() {
               @Override public Observable<Pair<View, MotionEvent>> call(
@@ -346,11 +390,7 @@ public class FlickableDialog extends DialogFragment {
                       })
                       .doOnNext(new Action1<Object>() {
                         @Override public void call(Object o) {
-                          FlickableDialogListener.OnOriginBack onOriginBackListener =
-                              flickableDialogListeners.getOnOriginBackListener();
-                          if (onOriginBackListener != null) {
-                            onOriginBackListener.onOriginBack();
-                          }
+                          onOriginBack();
                         }
                       })
                       .flatMap(new Func1<Object, Observable<Pair<View, MotionEvent>>>() {
@@ -475,23 +515,23 @@ public class FlickableDialog extends DialogFragment {
                 .doOnNext(new Action1<Pair<Integer, Integer>>() {
                   // call back X direction
                   @Override public void call(Pair<Integer, Integer> integerIntegerPair) {
-                    FlickableDialogListener.OnFlickedCross onFlickedCrossListener =
-                        flickableDialogListeners.getOnFlickedCrossListener();
-                    if (onFlickedCrossListener != null) {
+                    FlickableDialogListener.OnFlickedXDirection onFlickedXDirectionListener =
+                        flickableDialogListeners.getOnFlickedXDirectionListener();
+                    if (onFlickedXDirectionListener != null) {
                       if (integerIntegerPair.first < 0) {
                         if (integerIntegerPair.second < 0) {
-                          onFlickedCrossListener.onFlicked(
+                          onFlickedXDirectionListener.onFlickableDialogFlicked(
                               FlickableDialogListener.X_DIRECTION.LEFT_BOTTOM);
                         } else {
-                          onFlickedCrossListener.onFlicked(
+                          onFlickedXDirectionListener.onFlickableDialogFlicked(
                               FlickableDialogListener.X_DIRECTION.LEFT_TOP);
                         }
                       } else {
                         if (integerIntegerPair.second < 0) {
-                          onFlickedCrossListener.onFlicked(
+                          onFlickedXDirectionListener.onFlickableDialogFlicked(
                               FlickableDialogListener.X_DIRECTION.RIGHT_BOTTOM);
                         } else {
-                          onFlickedCrossListener.onFlicked(
+                          onFlickedXDirectionListener.onFlickableDialogFlicked(
                               FlickableDialogListener.X_DIRECTION.RIGHT_TOP);
                         }
                       }
@@ -522,6 +562,15 @@ public class FlickableDialog extends DialogFragment {
         new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
     dialog.setContentView(frameLayout);
     dialog.setCancelable(cancelable);
+    dialog.setOnCancelListener(new Dialog.OnCancelListener() {
+      @Override public void onCancel(DialogInterface dialog) {
+
+        FlickableDialogListener.OnCanceled canceledListener = flickableDialogListeners.getOnFlickableDialogCanceledListener();
+        if(canceledListener != null){
+          canceledListener.onFlickableDialogCanceled();
+        }
+      }
+    });
 
     return dialog;
   }

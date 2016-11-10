@@ -14,15 +14,11 @@ public class FlickableDialogListener {
         throw new IllegalStateException("cannot attach flickable dialog");
       }
     }
-
-    if (anyListener instanceof FlickableDialogListener.OnFlickedCross) {
-      onFlickedCrossListener = (FlickableDialogListener.OnFlickedCross) anyListener;
+    if (anyListener instanceof OnFlickedXDirection) {
+      onFlickedXDirectionListener = (OnFlickedXDirection) anyListener;
     }
-    if (anyListener instanceof FlickableDialogListener.OnOriginBack) {
-      onOriginBackListener = (FlickableDialogListener.OnOriginBack) anyListener;
-    }
-    if (anyListener instanceof FlickableDialogListener.OnFlicking) {
-      onFlickingListener = (FlickableDialogListener.OnFlicking) anyListener;
+    if(anyListener instanceof OnCanceled){
+      onFlickableDialogCanceled = (OnCanceled)anyListener;
     }
   }
 
@@ -34,59 +30,39 @@ public class FlickableDialogListener {
     LEFT_BOTTOM
   }
 
-  public interface OnFlickedCross {
-    /**
-     * callback flicking direction in categorization of cross area
-     *
-     * @param xDirection top,right,bottom,left
-     * @version 0.3.0
-     */
-    void onFlicked(X_DIRECTION xDirection);
-  }
-
-  public interface OnOriginBack {
+  public interface OnFlickedXDirection {
     /**
      * callback flicking direction in categorization of X area
      *
+     * @param xDirection LEFT_TOP,RIGHT_TOP,RIGHT_BOTTOM,LEFT_BOTTOM
      * @version 0.3.0
      */
-    void onOriginBack();
+    void onFlickableDialogFlicked(X_DIRECTION xDirection);
   }
 
-  public interface OnFlicking {
+  public interface OnCanceled {
     /**
-     * callback flicking amount from original position to dismiss threshold.
+     * callback touched outside or pressed back key.
      *
-     * @param verticalPercentage vertical flicking amount(-100 : top, 0 : origin. 100 : right)
-     * @param horizontalPercentage horizontal flicking amount(-100 : left, 0 : origin. 100 : right)
-     * @version 0.3.0
+     * @version 0.4.0
      */
-    void onFlicked(int verticalPercentage, int horizontalPercentage);
+    void onFlickableDialogCanceled();
   }
 
-  @Nullable private FlickableDialogListener.OnFlickedCross onFlickedCrossListener;
+  @Nullable private OnFlickedXDirection onFlickedXDirectionListener;
 
-  @Nullable private FlickableDialogListener.OnOriginBack onOriginBackListener;
+  @Nullable private OnCanceled onFlickableDialogCanceled;
 
-  @Nullable private FlickableDialogListener.OnFlicking onFlickingListener;
-
-  @Nullable OnFlickedCross getOnFlickedCrossListener() {
-    return onFlickedCrossListener;
+  @Nullable OnFlickedXDirection getOnFlickedXDirectionListener() {
+    return onFlickedXDirectionListener;
   }
 
-  @Nullable OnOriginBack getOnOriginBackListener() {
-    return onOriginBackListener;
-  }
-
-  @Nullable OnFlicking getOnFlickingListener() {
-    return onFlickingListener;
+  @Nullable OnCanceled getOnFlickableDialogCanceledListener() {
+    return onFlickableDialogCanceled;
   }
 
   void destroyListeners(){
-
-    onFlickedCrossListener = null;
-    onOriginBackListener = null;
-    onFlickingListener = null;
-
+    onFlickableDialogCanceled = null;
+    onFlickedXDirectionListener = null;
   }
 }
