@@ -99,7 +99,7 @@ public class FlickableDialog extends DialogFragment {
    *
    * @param verticalPercentage vertical flicking amount(-100 : top, 0 : origin. 100 : right)
    * @param horizontalPercentage horizontal flicking amount(-100 : left, 0 : origin. 100 : right)
-   * @version 0.4.0
+   * @version 0.9.0
    */
   public void onFlicking(float verticalPercentage, float horizontalPercentage) {}
 
@@ -107,7 +107,7 @@ public class FlickableDialog extends DialogFragment {
    * callback when dialog comes back to default position
    * This method is aimed to be overridden
    *
-   * @version 0.4.0
+   * @version 0.9.0
    */
   public void onOriginBack() {}
 
