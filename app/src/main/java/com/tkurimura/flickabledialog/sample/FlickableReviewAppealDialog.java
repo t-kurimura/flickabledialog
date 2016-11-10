@@ -1,5 +1,6 @@
 package com.tkurimura.flickabledialog.sample;
 
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,9 +43,7 @@ public class FlickableReviewAppealDialog extends FlickableDialog {
   @Override
   public void onFlicking(float verticalPercentage, float horizontalPercentage) {
 
-    final float alpha = 1f - (Math.abs(verticalPercentage) + Math.abs(horizontalPercentage) / 2f);
-
-    Log.v("wowow","alpha : " + alpha);
+    final float alpha = 1f - (Math.abs(verticalPercentage) + Math.abs(horizontalPercentage) / 1.4f);
 
     if(verticalPercentage < 0){
       if(horizontalPercentage < 0){
@@ -70,5 +69,10 @@ public class FlickableReviewAppealDialog extends FlickableDialog {
   }
 
   @Override
-  public void onOriginBack() {}
+  public void onOriginBack() {
+    topRight.setAlpha(1f);
+    topLeft.setAlpha(1f);
+    bottomLeft.setAlpha(1f);
+    bottomRight.setAlpha(1f);
+  }
 }

@@ -43,6 +43,27 @@ public class ReviewAppealFragment extends Fragment implements FlickableDialogLis
   }
 
   @Override public void onFlickableDialogFlicked(FlickableDialogListener.X_DIRECTION xDirection) {
-    Toast.makeText(getContext(),xDirection.toString(),Toast.LENGTH_LONG).show();
+
+    String reviewText;
+
+    switch (xDirection){
+      case LEFT_BOTTOM:
+        reviewText = "Bad";
+        break;
+      case LEFT_TOP:
+        reviewText = "Well";
+        break;
+      case RIGHT_BOTTOM:
+        reviewText = "Good";
+        break;
+      case RIGHT_TOP:
+        reviewText = "Great";
+        break;
+      default:
+        reviewText = "unknown";
+        break;
+    }
+
+    Toast.makeText(getContext(), "Appreciated to your ["+ reviewText +"]", Toast.LENGTH_SHORT).show();
   }
 }
