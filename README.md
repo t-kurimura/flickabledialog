@@ -21,7 +21,6 @@ Java7 and Android minimum API level(SDK) 11 (Andorid 3.0)
 |AlertDialog|Premium appeal|
 |---|---|
 |![AlertDialog](https://github.com/t-kurimura/flickabledialog/blob/master/alert_dialog.gif)|![Premium](https://github.com/t-kurimura/flickabledialog/blob/master/premium_appeal.gif)|
-|---|---|
 |Profile setting|Review popup|
 |in develop|![Review](https://github.com/t-kurimura/flickabledialog/blob/master/review_popup.gif)|
 
@@ -34,13 +33,13 @@ Java7 and Android minimum API level(SDK) 11 (Andorid 3.0)
 
 Attention to use `getSupportFragmentManager()` as argument in dialog.show(,);
 
-```
+```java
 // simple way to call
 FlickableDialog dialog = FlickableDialog.newInstance(R.layout.your_dialog_layout);
 dialog.show(getSupportFragmentManager(),dialog.getClass().getSimpleName());
 ```
 
-```
+```java
 
 // you can define detail flicking settings 
 FlickableDialog dialog = FlickableDialog.newInstance(
@@ -57,13 +56,13 @@ dialog.show(getSupportFragmentManager(),dialog.getClass().getSimpleName());
 
 Attention to use `getChildFragmentManager()` as argument in dialog.show(,);
 
-```
+```java
 // simple way to call
 FlickableDialog dialog = FlickableDialog.newInstance(R.layout.your_dialog_layout);
 dialog.show(getChildFragmentManager(),dialog.getClass().getSimpleName());
 ```
 
-```
+```java
 // you can define detail flicking settings 
 FlickableDialog dialog = FlickableDialog.newInstance(
 	R.layout.your_dialog_layout, // dialog content layout resource Id
@@ -79,7 +78,8 @@ dialog.show(getSupportFragmentManager(),dialog.getClass().getSimpleName());
 you implement `FlickableDialogListener.OnFlickedXDirection` in Activity or Fragment.
 
 * On flicked
-```
+
+```java
 HogeActivity extend Activity implement FlickableDialogListener.OnFlickedXDirection{
 
 	@Override 
@@ -96,7 +96,7 @@ HogeActivity extend Activity implement FlickableDialogListener.OnFlickedXDirecti
 
 onCancel is callbacked when user touched outside or 
 
-```
+```java
 FugaFragment extend Fragment implement FlickableDialogListener.OnCanceled{
 
 	@Override 
@@ -108,7 +108,9 @@ FugaFragment extend Fragment implement FlickableDialogListener.OnCanceled{
 
 ### Custom
 
-```
+You can extend FlickableDialog to your custom dialog.
+
+```java
 public class FlickableHogeDialog extends FlickableDialog {
 
   public static FlickableHogeDialog newInstance(Fragment fragment){
