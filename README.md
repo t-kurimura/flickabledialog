@@ -115,13 +115,29 @@ public class FlickableHogeDialog extends FlickableDialog {
 
   public static FlickableHogeDialog newInstance(Fragment fragment){
 
-    FlickableHogeDialog flackablePremiumAppealDialog = new FlickableHogeDialog();
+    FlickableHogeDialog flickableHogeDialog = new FlickableHogeDialog();
     Bundle bundle = new Bundle();
-    bundle.putInt(LAYOUT_RESOURCE_KEY,R.layout.dialog_premium_apple);
-    flackablePremiumAppealDialog.setTargetFragment(fragment,0);
-    flackablePremiumAppealDialog.setArguments(bundle);
+    bundle.putInt(LAYOUT_RESOURCE_KEY,R.layout.your_custom_layout);
+    flickableHogeDialog.setTargetFragment(fragment,0);
+    flickableHogeDialog.setArguments(bundle);
 
-    return flackablePremiumAppealDialog;
+    return flickableHogeDialog;
+  }
+
+  @Override 
+  public Dialog onCreateDialog(Bundle savedInstanceState) {
+  Dialog dialog = super.onCreateDialog(savedInstanceState);
+  
+  Button button = (Button) dialog.findViewById(R.id.your_custom_complete_button);
+  button.setOnClickListener(new View.OnClickListener() {
+    @Override 
+    public void onClick(View v) {
+      Toast.makeText(getContext(),"You tapped Complete button!",Toast.LENGTH_SHORT).show();
+      dismiss();
+    }
+  });
+  
+    return dialog;
   }
 
   @Override
