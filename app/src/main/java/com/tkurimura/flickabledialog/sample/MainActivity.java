@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
     navigationView.setCheckedItem(R.id.nav_mail);
+
+    setDefaultFragment();
   }
 
   @Override public boolean onNavigationItemSelected(MenuItem item) {
@@ -65,5 +67,13 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
+  }
+
+  private void setDefaultFragment(){
+
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    fragmentTransaction.replace(R.id.tab_content_container, new CreateMailFragment());
+    fragmentTransaction.commit();
   }
 }

@@ -1,14 +1,11 @@
 package com.tkurimura.flickabledialog.sample;
 
-import android.app.ActionBar;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import com.sample.R;
 
 /**
@@ -20,7 +17,6 @@ public class ProfileTutorialFragment extends Fragment{
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    getActivity().setTitle("Profile");
   }
 
   @Override
