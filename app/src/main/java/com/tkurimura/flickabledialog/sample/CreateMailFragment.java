@@ -34,7 +34,7 @@ public class CreateMailFragment extends Fragment {
     fab.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         FlickableDialog dialog = FlickableDialog.newInstance(R.layout.dialog_create_mail);
-        dialog.show(getFragmentManager(), dialog.getClass().getSimpleName());
+        dialog.show(getChildFragmentManager(), dialog.getClass().getSimpleName());
       }
     });
   }
