@@ -1,6 +1,5 @@
 package com.tkurimura.flickabledialog;
 
-
 import android.support.annotation.Nullable;
 
 public class FlickableDialogListener {
@@ -8,17 +7,18 @@ public class FlickableDialogListener {
   public FlickableDialogListener(FlickableDialog flickableDialog) {
 
     Object anyListener = flickableDialog.getParentFragment();
-    if(anyListener == null){
+    if (anyListener == null) {
       anyListener = flickableDialog.getParentFragment();
       if (anyListener == null) {
-        throw new IllegalStateException("cannot attach flickable dialog");
+        throw new IllegalStateException(
+            "You may implement getSupportFragmentManager() into  FlickableDialog#show argument in Fragment . If you call FlickableDialog in Fragment, you have to use getChildFragmentManager instead of getSupportFragmentManager");
       }
     }
     if (anyListener instanceof OnFlickedXDirection) {
       onFlickedXDirectionListener = (OnFlickedXDirection) anyListener;
     }
-    if(anyListener instanceof OnCanceled){
-      onFlickableDialogCanceled = (OnCanceled)anyListener;
+    if (anyListener instanceof OnCanceled) {
+      onFlickableDialogCanceled = (OnCanceled) anyListener;
     }
   }
 
@@ -61,7 +61,7 @@ public class FlickableDialogListener {
     return onFlickableDialogCanceled;
   }
 
-  void destroyListeners(){
+  void destroyListeners() {
     onFlickableDialogCanceled = null;
     onFlickedXDirectionListener = null;
   }
