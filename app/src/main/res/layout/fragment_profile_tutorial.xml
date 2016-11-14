@@ -1,30 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_main"
-    tools:context="com.tkurimura.flickabledialog.sample.MainActivity">
+    tools:context="com.tkurimura.flickabledialog.sample.MainActivity"
+    tools:showIn="@layout/app_bar_main">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/fragment_profile_tutorial_background"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_profile_setting"/>
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:translationY="40dp"
+        android:layout_alignBottom="@+id/fragment_profile_tutorial_background"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_profile"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This is mail fragment." />
+        android:paddingTop="40dp"
+        android:layout_below="@+id/fragment_profile_tutorial_background"
+        android:layout_alignParentStart="true"
+        >
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Adelina Martin"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp"
+            android:textSize="24sp"/>
 
+        <RelativeLayout
+            android:id="@+id/fragment_profile_tutorial_topic_holder"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="12dp"
+            android:clickable="true"
+            android:background="@drawable/backgournd_profile_card"
+            android:elevation="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="4dp"
+                android:text="Topics"
+                />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_content_copy_black_24dp"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/fragment_profile_tutorial_person_holder"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:clickable="true"
+            android:background="@drawable/backgournd_profile_card"
+            android:elevation="2dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="4dp"
+                android:text="Person"/>
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_group_add_black_24dp"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
 </RelativeLayout>
