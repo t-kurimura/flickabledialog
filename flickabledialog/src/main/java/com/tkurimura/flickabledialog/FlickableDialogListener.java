@@ -8,11 +8,22 @@ public class FlickableDialogListener {
 
     Object anyListener = flickableDialog.getParentFragment();
     if (anyListener == null) {
-      anyListener = flickableDialog.getParentFragment();
-      if (anyListener == null) {
-        throw new IllegalStateException(
-            "You may implement getSupportFragmentManager() into  FlickableDialog#show argument in Fragment . If you call FlickableDialog in Fragment, you have to use getChildFragmentManager instead of getSupportFragmentManager");
-      }
+      throw new IllegalStateException(
+          "You must pass a FragmentManager into FlickableDialog#show(). If you call FlickableDialog in a Fragment, use getChildFragmentManager(). Use getSupportFragmentManager() if in an Activity");
+    }
+    if (anyListener instanceof OnFlickedXDirection) {
+      onFlickedXDirectionListener = (OnFlickedXDirection) anyListener;
+    }
+    if (anyListener instanceof OnCanceled) {
+      onFlickableDialogCanceled = (OnCanceled) anyListener;
+    }
+  }
+  public FlickableDialogListener(FlickableDialogNative flickableDialog) {
+
+    Object anyListener = flickableDialog.getParentFragment();
+    if (anyListener == null) {
+      throw new IllegalStateException(
+              "You must pass a FragmentManager into FlickableDialogNative#show(). If you call FlickableDialogNative in a Fragment, use getChildFragmentManager(). Use getFragmentManager() if in an Activity");
     }
     if (anyListener instanceof OnFlickedXDirection) {
       onFlickedXDirectionListener = (OnFlickedXDirection) anyListener;
