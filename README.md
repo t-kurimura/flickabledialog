@@ -70,7 +70,7 @@ FlickableDialog dialog = FlickableDialog.newInstance(
 	50f, // slope when you flick dialog to side direction (default : 30f)
 	R.color.colorAccent); // background color of the area where dialog dismiss if you touch
 
-dialog.show(getSupportFragmentManager(),dialog.getClass().getSimpleName());
+dialog.show(getChildFragmentManager(),dialog.getClass().getSimpleName());
 ```
 
 ### Callback
@@ -153,7 +153,7 @@ public class FlickableHogeDialog extends FlickableDialog {
 ```
 
 
-## Liscense
+## License
 
 ```
 The MIT License (MIT)
