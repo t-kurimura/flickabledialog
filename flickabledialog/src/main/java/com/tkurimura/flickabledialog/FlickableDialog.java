@@ -124,7 +124,7 @@ public class FlickableDialog extends DialogFragment {
     @LayoutRes final int layoutResource = bundle.getInt(LAYOUT_RESOURCE_KEY);
 
     DISMISS_THRESHOLD = bundle.getFloat(DISMISS_THRESHOLD_KEY, DISMISS_THRESHOLD);
-    ROTATE_ANIMATION_EXPONENT = bundle.getFloat(DISMISS_THRESHOLD_KEY, ROTATE_ANIMATION_EXPONENT);
+    ROTATE_ANIMATION_EXPONENT = bundle.getFloat(ROTATE_ANIMATION_KEY, ROTATE_ANIMATION_EXPONENT);
     int backgroundColorResource = bundle.getInt(BACKGROUND_COLOR_RESOURCE_KEY, 0);
 
     final FrameLayout frameLayout = new FrameLayout(getContext());
