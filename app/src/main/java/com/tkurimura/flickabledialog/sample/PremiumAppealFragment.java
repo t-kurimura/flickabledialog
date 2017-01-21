@@ -17,7 +17,7 @@ import com.tkurimura.flickabledialog.FlickableDialogListener;
  */
 
 public class PremiumAppealFragment extends Fragment implements
-    FlickableDialogListener.OnFlickedXDirection {
+    FlickableDialogListener {
 
   Switch switchView;
 
@@ -48,7 +48,8 @@ public class PremiumAppealFragment extends Fragment implements
       @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if(isChecked){
 
-          FlickablePremiumAppealDialog flickablePremiumAppealDialog = FlickablePremiumAppealDialog.newInstance(PremiumAppealFragment.this);
+          FlickablePremiumAppealDialog flickablePremiumAppealDialog = FlickablePremiumAppealDialog.newInstance(
+                  PremiumAppealFragment.this, PremiumAppealFragment.this);
           flickablePremiumAppealDialog.show(getChildFragmentManager(),FlickableDialog.class.getSimpleName());
         }
       }
@@ -58,4 +59,7 @@ public class PremiumAppealFragment extends Fragment implements
   @Override public void onFlickableDialogFlicked(FlickableDialogListener.X_DIRECTION xDirection) {
     switchView.setChecked(false);
   }
+
+  @Override
+  public void onFlickableDialogCanceled() { }
 }
