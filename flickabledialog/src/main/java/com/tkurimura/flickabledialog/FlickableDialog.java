@@ -39,9 +39,10 @@ import rx.subscriptions.CompositeSubscription;
 public class FlickableDialog extends DialogFragment {
 
   protected static final String LAYOUT_RESOURCE_KEY = "layout_resource_bundle_key";
-  protected static final String ROTATE_ANIMATION_KEY = "rotate_animation_key";
-  protected static final String DISMISS_THRESHOLD_KEY = "layout_resource_bundle_key";
-  protected static final String BACKGROUND_COLOR_RESOURCE_KEY = "color_resource_bundle_key";
+  protected static final String ROTATE_ANIMATION_KEY = "rotate_animation_bundle_key";
+  protected static final String DISMISS_THRESHOLD_KEY = "dismiss_threshold_bundle_key";
+  protected static final String BACKGROUND_COLOR_RESOURCE_KEY =
+          "background_color_resource_bundle_key";
   private boolean touchedTopArea;
 
   private float DISMISS_THRESHOLD = 700f;
