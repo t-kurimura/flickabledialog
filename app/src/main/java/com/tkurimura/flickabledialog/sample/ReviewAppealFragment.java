@@ -15,7 +15,7 @@ import com.tkurimura.flickabledialog.FlickableDialogListener;
  * Created by TakahisaKurimura on 2016/11/06.
  */
 
-public class ReviewAppealFragment extends Fragment implements FlickableDialogListener.OnFlickedXDirection{
+public class ReviewAppealFragment extends Fragment implements FlickableDialogListener {
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class ReviewAppealFragment extends Fragment implements FlickableDialogLis
     nextButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
-        FlickableReviewAppealDialog flickableDialog = FlickableReviewAppealDialog.newInstance();
+        FlickableReviewAppealDialog flickableDialog = FlickableReviewAppealDialog.newInstance(ReviewAppealFragment.this);
         flickableDialog.show(getChildFragmentManager(),FlickableDialog.class.getSimpleName());
       }
     });
@@ -66,4 +66,6 @@ public class ReviewAppealFragment extends Fragment implements FlickableDialogLis
 
     Toast.makeText(getContext(), "Appreciated to your ["+ reviewText +"]", Toast.LENGTH_SHORT).show();
   }
+
+  @Override public void onFlickableDialogCanceled() { }
 }

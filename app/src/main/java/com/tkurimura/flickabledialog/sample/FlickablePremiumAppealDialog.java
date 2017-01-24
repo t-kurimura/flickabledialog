@@ -8,6 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.sample.R;
 import com.tkurimura.flickabledialog.FlickableDialog;
+import com.tkurimura.flickabledialog.FlickableDialogListener;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by TakahisaKurimura on 2016/11/07.
@@ -15,13 +18,14 @@ import com.tkurimura.flickabledialog.FlickableDialog;
 
 public class FlickablePremiumAppealDialog extends FlickableDialog {
 
-  public static FlickablePremiumAppealDialog newInstance(Fragment fragment){
+  public static FlickablePremiumAppealDialog newInstance(Fragment fragment, FlickableDialogListener listener){
 
     FlickablePremiumAppealDialog flackablePremiumAppealDialog = new FlickablePremiumAppealDialog();
     Bundle bundle = new Bundle();
     bundle.putInt(LAYOUT_RESOURCE_KEY,R.layout.dialog_premium_apple);
     flackablePremiumAppealDialog.setTargetFragment(fragment,0);
     flackablePremiumAppealDialog.setArguments(bundle);
+    flackablePremiumAppealDialog.setFlickableDialogListener(listener);
 
     return flackablePremiumAppealDialog;
   }

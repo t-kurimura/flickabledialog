@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import com.sample.R;
 import com.tkurimura.flickabledialog.FlickableDialog;
+import com.tkurimura.flickabledialog.FlickableDialogListener;
 
 /**
  * Created by TakahisaKurimura on 2016/11/07.
@@ -14,12 +15,14 @@ import com.tkurimura.flickabledialog.FlickableDialog;
 
 public class FlickableReviewAppealDialog extends FlickableDialog {
 
-  public static FlickableReviewAppealDialog newInstance(){
+  public static FlickableReviewAppealDialog newInstance(
+          FlickableDialogListener listener){
 
     FlickableReviewAppealDialog flackablePremiumAppealDialog = new FlickableReviewAppealDialog();
     Bundle bundle = new Bundle();
     bundle.putInt(LAYOUT_RESOURCE_KEY,R.layout.dialog_review_appeal);
     flackablePremiumAppealDialog.setArguments(bundle);
+    flackablePremiumAppealDialog.setFlickableDialogListener(listener);
 
     return flackablePremiumAppealDialog;
   }
