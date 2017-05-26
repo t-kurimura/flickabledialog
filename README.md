@@ -18,11 +18,9 @@ Java7 and Android minimum API level(SDK) 11 (Andorid 3.0)
 
 ## Usecase demo 
 
-|AlertDialog|Premium appeal|
-|---|---|
-|![AlertDialog](https://github.com/t-kurimura/flickabledialog/blob/master/alert_dialog.gif)|![Premium](https://github.com/t-kurimura/flickabledialog/blob/master/premium_appeal.gif)|
-|Profile setting|Review popup|
-|in develop|![Review](https://github.com/t-kurimura/flickabledialog/blob/master/review_popup.gif)|
+|AlertDialog|Premium appeal|Review popup|
+|---|---|---|
+|![AlertDialog](https://github.com/t-kurimura/flickabledialog/blob/master/alert_dialog.gif)|![Premium](https://github.com/t-kurimura/flickabledialog/blob/master/premium_appeal.gif)|![Review](https://github.com/t-kurimura/flickabledialog/blob/master/review_popup.gif)|
 
 
 ## Usage
